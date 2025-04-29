@@ -1,7 +1,5 @@
 <script setup>
-import NavbarLayout from '@/Layouts/defaultlayout.vue'
 
-defineOptions({ layout: NavbarLayout  })
 </script>
 <template>
     <div>

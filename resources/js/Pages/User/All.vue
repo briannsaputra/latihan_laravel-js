@@ -1,15 +1,19 @@
 <script setup>
+import { Head } from '@inertiajs/vue3'
 defineProps({
     user: String
 })
 
-import NavbarLayout from '@/Layouts/defaultlayout.vue'
-defineOptions({ layout: NavbarLayout  })
 </script>
 
 <template>
-        <div>
+
+    <Head>
+        <title>Peroject Inertia</title>
+        <meta name="description" content="Belajar Inertia Part 3">
+    </Head>
+    <div>
         <h1>Ini adallah halaman User</h1>
-        <h2>anda allah {{ user }}</h2>
+        <h2>anda adallah {{ user }}</h2>
     </div>
 </template>
