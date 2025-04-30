@@ -29,47 +29,7 @@ import { Link } from '@inertiajs/vue3';
 
         <!-- Cards -->
         <div class="container-fluid">
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="card text-bg-primary p-4 shadow-sm">
-                        <div class="card-body">
-                            <h5 class="card-title"><i class="bi bi-people"></i> Total Users</h5>
-                            <h2 class="fw-bold">1,234</h2>
-                            <p class="mb-0">Active this month</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card text-bg-success p-4 shadow-sm">
-                        <div class="card-body">
-                            <h5 class="card-title"><i class="bi bi-cart-check"></i> Orders</h5>
-                            <h2 class="fw-bold">567</h2>
-                            <p class="mb-0">Completed Orders</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card text-bg-warning p-4 shadow-sm">
-                        <div class="card-body">
-                            <h5 class="card-title"><i class="bi bi-currency-dollar"></i> Revenue</h5>
-                            <h2 class="fw-bold">$12,345</h2>
-                            <p class="mb-0">Total Revenue</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Optional: Additional Section -->
-            <div class="row mt-5">
-                <div class="col-12">
-                    <div class="card shadow-sm p-4">
-                        <div class="card-body">
-                            <slot />
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            <slot />
         </div>
 
     </div>

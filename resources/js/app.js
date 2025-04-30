@@ -5,6 +5,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import NavbarLayout from "./Layouts/defaultlayout.vue";
 import AdminLayout from "./Layouts/adminlayout.vue";
+// icon
+import FeatherIcon from 'vue-feather'
 
 createInertiaApp({
     resolve: (name) => {
@@ -16,9 +18,11 @@ createInertiaApp({
         return page;
     },
     setup({ el, App, props, plugin }) {
+        const app = createApp({ render: () => h(App, props) })
         createApp({ render: () => h(App, props) })
-            .use(plugin)
-            .mount(el);
+            app.use(plugin)
+            app.component('FeatherIcon', FeatherIcon)
+            app.mount(el);
     },
     progress: {
         // The delay after which the progress bar will appear, in milliseconds...

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -9,9 +10,9 @@ class UserController extends Controller
 {
     public function index()
     {
-        $user = 'ben';
+        $users = User::all();
         return Inertia('User/All', [
-            'user' => $user
+            'users' => $users
         ]);
     }
 }
