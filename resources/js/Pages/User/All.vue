@@ -1,22 +1,27 @@
 <script setup>
 import { Head } from '@inertiajs/vue3'
-import { reactive } from 'vue'
-import { router } from '@inertiajs/vue3'
+import { useForm } from '@inertiajs/vue3'
 
-const form = reactive({
+const form = useForm({
     name: null,
+    image: null,
     email: null,
     password: null,
-})
+});
 
 function submit() {
-    router.post('/user-add', form)
+    form.post('/user-add', {
+        forceFormData: true // <== Penting untuk file upload
+    })
+}
+
+function handleFileChange(event) {
+    form.image = event.target.files[0];
 }
 
 defineProps({
     users: Object
 })
-
 </script>
 
 <template>
@@ -25,14 +30,13 @@ defineProps({
         <title>Peroject Inertia</title>
         <meta name="description" content="Belajar Inertia Part 3">
     </Head>
-    <!-- Optional: Additional Section -->
+
     <div class="row mt-5">
         <div class="col-12">
             <div class="card shadow-sm p-4">
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <h3>List User</h3>
-                        <!-- Button trigger modal -->
                         <button type="button" class="btn btn-primary d-flex align-items-center gap-2"
                             data-bs-toggle="modal" data-bs-target="#exampleModal">
                             <FeatherIcon type="plus-square" />
@@ -45,14 +49,24 @@ defineProps({
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Nama</th>
+                                    <th scope="col">image</th>
                                     <th scope="col">Email</th>
+                                    <th scope="col">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody v-for="(user, index) in users" :key="index">
                                 <tr>
                                     <th scope="row">{{ index + 1 }}</th>
                                     <td>{{ user.name }}</td>
+                                    <td>
+                                        <img v-if="user.image_url" :src="user.image_url" alt="User Image" class="img-fluid" width="50" />
+                                        <span v-else>Image Not Found</span>
+                                    </td>
                                     <td>{{ user.email }}</td>
+                                    <td>
+                                        <button class="btn btn-success me-3">Edit</button>
+                                        <button class="btn btn-danger">Hapus</button>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -76,15 +90,22 @@ defineProps({
                             <label for="nama" class="form-label">Nama</label>
                             <input type="text" class="form-control" id="nama" placeholder="brian saputra"
                                 v-model="form.name">
+                            <div class="text-danger" v-if="form.errors.name">{{ form.errors.name }}</div>
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
                             <input type="email" class="form-control" id="email" placeholder="name@example.com"
                                 v-model="form.email">
+                            <div class="text-danger" v-if="form.errors.email">{{ form.errors.email }}</div>
                         </div>
                         <div class="mb-3">
-                            <label for="password" class="form-label">password</label>
+                            <label for="password" class="form-label">Password</label>
                             <input type="password" class="form-control" id="password" v-model="form.password">
+                            <div class="text-danger" v-if="form.errors.password">{{ form.errors.password }}</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="image" class="form-label">Image</label>
+                            <input type="file" id="image" @change="handleFileChange" />
                         </div>
                     </div>
                     <div class="modal-footer">
