@@ -1,6 +1,8 @@
 <script setup>
 import { Head } from '@inertiajs/vue3'
 import { useForm } from '@inertiajs/vue3'
+import { Link } from '@inertiajs/vue3'
+import { router } from '@inertiajs/vue3'
 
 const form = useForm({
     name: null,
@@ -22,6 +24,16 @@ function handleFileChange(event) {
 defineProps({
     users: Object
 })
+
+function hapusUser(id) {
+    if (confirm('Yakin ingin menghapus user ini?')) {
+        router.delete(route('users.destroy', id), {
+            onSuccess: () => {
+                alert('User berhasil dihapus')
+            }
+        })
+    }
+}
 </script>
 
 <template>
@@ -59,13 +71,16 @@ defineProps({
                                     <th scope="row">{{ index + 1 }}</th>
                                     <td>{{ user.name }}</td>
                                     <td>
-                                        <img v-if="user.image_url" :src="user.image_url" alt="User Image" class="img-fluid" width="50" />
+                                        <img v-if="user.image_url" :src="user.image_url" alt="User Image"
+                                            class="img-fluid" width="50" />
                                         <span v-else>Image Not Found</span>
                                     </td>
                                     <td>{{ user.email }}</td>
                                     <td>
+                                        <Link :href="`/user/${user.id}/edit`">
                                         <button class="btn btn-success me-3">Edit</button>
-                                        <button class="btn btn-danger">Hapus</button>
+                                        </Link>
+                                        <button @click="hapusUser(user.id)" class="btn btn-danger">Hapus</button>
                                     </td>
                                 </tr>
                             </tbody>

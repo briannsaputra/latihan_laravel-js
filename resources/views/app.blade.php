@@ -9,11 +9,11 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     @vite('resources/js/app.js')
     @inertiaHead
+    @routes
 </head>
 
 <body>
     @inertia
-
 </body>
 
 </html>
